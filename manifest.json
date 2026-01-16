@@ -5,7 +5,6 @@
 	"minAppVersion": "0.15.0",
 	"description": "Display a random feed of your notes, Reels style.",
 	"author": "Antigravity",
-	"authorUrl": "https://github.com/obsidianmd/obsidian-sample-plugin",
-	"fundingUrl": "https://obsidian.md/pricing",
+	"authorUrl": "https://github.com/Tixamala/infinite-notes",
 	"isDesktopOnly": false
 }

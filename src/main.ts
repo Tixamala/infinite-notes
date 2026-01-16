@@ -26,6 +26,10 @@ export default class InfiniteNotesPlugin extends Plugin {
 		});
 
 		this.addSettingTab(new InfiniteNotesSettingTab(this.app, this));
+
+		this.registerObsidianProtocolHandler("open-infinite-notes", (params) => {
+			this.activateView();
+		});
 	}
 
 	async activateView() {
