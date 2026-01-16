@@ -1,0 +1,11 @@
+{
+	"id": "infinite-notes",
+	"name": "Infinite Notes",
+	"version": "1.0.0",
+	"minAppVersion": "0.15.0",
+	"description": "Display a random feed of your notes, Reels style.",
+	"author": "Antigravity",
+	"authorUrl": "https://github.com/obsidianmd/obsidian-sample-plugin",
+	"fundingUrl": "https://obsidian.md/pricing",
+	"isDesktopOnly": false
+}
