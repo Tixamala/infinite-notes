@@ -22,20 +22,20 @@ export class InfiniteNotesSettingTab extends PluginSettingTab {
 		const { containerEl } = this;
 		containerEl.empty();
 
-		containerEl.createEl("h2", { text: "Infinite Notes Settings" });
+
 
 		new Setting(containerEl)
-			.setName("Ignored Folders")
+			.setName("Ignored folders")
 			.setDesc("Notes in these folders will not appear in the feed.")
 			.addButton((button) =>
 				button
-					.setButtonText("Add Folder")
+					.setButtonText("Add folder")
 					.setCta()
 					.onClick(() => {
 						new FolderSuggestModal(this.app, (folder) => {
 							if (!this.plugin.settings.ignoredFolders.includes(folder.path)) {
 								this.plugin.settings.ignoredFolders.push(folder.path);
-								this.plugin.saveSettings();
+								void this.plugin.saveSettings();
 								this.display(); // Refresh to show new folder
 							}
 						}).open();

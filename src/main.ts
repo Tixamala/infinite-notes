@@ -13,22 +13,22 @@ export default class InfiniteNotesPlugin extends Plugin {
 			(leaf) => new InfiniteNotesView(leaf, this.settings)
 		);
 
-		this.addRibbonIcon('infinity', 'Infinite Notes', () => {
-			this.activateView();
+		this.addRibbonIcon('infinity', 'Infinite notes', () => {
+			void this.activateView();
 		});
 
 		this.addCommand({
-			id: 'open-infinite-notes',
-			name: 'Open Infinite Notes Feed',
+			id: 'open-feed', // Removed plugin-id prefix
+			name: 'Open feed', // Sentence case and removed plugin name
 			callback: () => {
-				this.activateView();
+				void this.activateView();
 			}
 		});
 
 		this.addSettingTab(new InfiniteNotesSettingTab(this.app, this));
 
-		this.registerObsidianProtocolHandler("open-infinite-notes", (params) => {
-			this.activateView();
+		this.registerObsidianProtocolHandler("open-infinite-notes", () => {
+			void this.activateView();
 		});
 	}
 
@@ -46,19 +46,19 @@ export default class InfiniteNotesPlugin extends Plugin {
 		}
 
 		if (leaf) {
-			workspace.revealLeaf(leaf);
+			await workspace.revealLeaf(leaf);
 		}
 	}
 
 	async loadSettings() {
-		this.settings = Object.assign({}, DEFAULT_SETTINGS, await this.loadData());
+		this.settings = Object.assign({}, DEFAULT_SETTINGS, await this.loadData() as InfiniteNotesSettings);
 	}
 
 	async saveSettings() {
 		await this.saveData(this.settings);
 	}
 
-	async onunload() {
+	onunload() {
 
 	}
 }

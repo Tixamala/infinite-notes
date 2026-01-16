@@ -1,5 +1,5 @@
 
-import { ItemView, WorkspaceLeaf, TFile, MarkdownRenderer } from "obsidian";
+import { ItemView, WorkspaceLeaf, MarkdownRenderer } from "obsidian";
 import { InfiniteNotesSettings } from "./settings";
 
 export const VIEW_TYPE_INFINITE_NOTES = "infinite-notes-view";
@@ -17,7 +17,7 @@ export class InfiniteNotesView extends ItemView {
 	}
 
 	getDisplayText() {
-		return "Infinite Notes";
+		return "Infinite notes";
 	}
 
 	async onOpen() {
@@ -33,9 +33,9 @@ export class InfiniteNotesView extends ItemView {
 		}
 
 		// Infinite scroll observer (simple implementation)
-		container.addEventListener("scroll", async () => {
+		container.addEventListener("scroll", () => {
 			if (container.scrollTop + container.clientHeight >= container.scrollHeight - 100) {
-				await this.appendRandomNote(container);
+				void this.appendRandomNote(container);
 			}
 		});
 	}
