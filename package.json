@@ -2,7 +2,7 @@
 	"name": "infinite-notes",
 	"version": "1.0.0",
 	"description": "Display a random feed of your notes, Reels style.",
-	"main": "main.js",
+	"author": "Tixamala",
 	"type": "module",
 	"scripts": {
 		"dev": "node esbuild.config.mjs",

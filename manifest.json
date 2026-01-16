@@ -4,7 +4,7 @@
 	"version": "1.0.0",
 	"minAppVersion": "0.15.0",
 	"description": "Display a random feed of your notes, Reels style.",
-	"author": "Antigravity",
+	"author": "Tixamala",
 	"authorUrl": "https://github.com/Tixamala/infinite-notes",
 	"isDesktopOnly": false
 }
