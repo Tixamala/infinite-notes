@@ -6,6 +6,10 @@ export const VIEW_TYPE_INFINITE_NOTES = "infinite-notes-view";
 
 export class InfiniteNotesView extends ItemView {
 	settings: InfiniteNotesSettings;
+	private isLoading = false; // Protection against parallel downloads
+										 // to prevent too many notes from being downloaded at once
+
+	private readonly LOAD_THRESHOLD = 100; // Response threshold(px)
 
 	constructor(leaf: WorkspaceLeaf, settings: InfiniteNotesSettings) {
 		super(leaf);
@@ -21,24 +25,32 @@ export class InfiniteNotesView extends ItemView {
 	}
 
 	async onOpen() {
-		const container = this.containerEl.children[1];
-		if (!container) return;
-		
-		container.empty();
-		container.addClass("infinite-notes-container");
+			const container = this.containerEl.children[1];
+			if (!container) return;
 
-		// Initial load of a few notes
-		for (let i = 0; i < 5; i++) {
-			await this.appendRandomNote(container);
-		}
+			container.empty();
+			container.addClass("infinite-notes-container");
 
-		// Infinite scroll observer (simple implementation)
-		container.addEventListener("scroll", () => {
-			if (container.scrollTop + container.clientHeight >= container.scrollHeight - 100) {
-				void this.appendRandomNote(container);
+			// Initial load
+			for (let i = 0; i < 5; i++) {
+				await this.appendRandomNote(container);
 			}
-		});
-	}
+
+			// Optimized scroll handler
+			container.addEventListener("scroll", () => {
+				if (this.isLoading) return;
+
+				const { scrollTop, clientHeight, scrollHeight } = container;
+				const distanceFromBottom = scrollHeight - scrollTop - clientHeight;
+
+				if (distanceFromBottom <= this.LOAD_THRESHOLD) {
+					this.isLoading = true;
+					void this.appendRandomNote(container).finally(() => {
+						this.isLoading = false;
+					});
+				}
+			});
+		}
 
 	async onClose() {
 		// Nothing to clean up for now
@@ -46,7 +58,7 @@ export class InfiniteNotesView extends ItemView {
 
 	async appendRandomNote(container: Element) {
 		let files = this.app.vault.getMarkdownFiles();
-		
+
 		// Filter ignored folders
 		if (this.settings.ignoredFolders.length > 0) {
 			files = files.filter(file => {
@@ -62,7 +74,7 @@ export class InfiniteNotesView extends ItemView {
 		const content = await this.app.vault.read(randomFile);
 
 		const noteCard = container.createDiv({ cls: "infinite-note-card" });
-		
+
         // Header with file name
         const header = noteCard.createEl("h2", { text: randomFile.basename });
         header.addClass("infinite-note-header");
