@@ -9,8 +9,6 @@ export class InfiniteNotesView extends ItemView {
 	private isLoading = false; // Protection against parallel downloads
 										 // to prevent too many notes from being downloaded at once
 
-	private readonly LOAD_THRESHOLD = 100; // Response threshold(px)
-
 	constructor(leaf: WorkspaceLeaf, settings: InfiniteNotesSettings) {
 		super(leaf);
 		this.settings = settings;
@@ -43,7 +41,8 @@ export class InfiniteNotesView extends ItemView {
 				const { scrollTop, clientHeight, scrollHeight } = container;
 				const distanceFromBottom = scrollHeight - scrollTop - clientHeight;
 
-				if (distanceFromBottom <= this.LOAD_THRESHOLD) {
+				// load from settings
+				if (distanceFromBottom <= this.settings.loadThreshold) {
 					this.isLoading = true;
 					void this.appendRandomNote(container).finally(() => {
 						this.isLoading = false;
