@@ -77,9 +77,36 @@ export class InfiniteNotesView extends ItemView {
 
 		const noteCard = container.createDiv({ cls: "infinite-note-card" });
 
-        // Header with file name
-        const header = noteCard.createEl("h2", { text: randomFile.basename });
-        header.addClass("infinite-note-header");
+		// Header
+		const header = noteCard.createDiv({ cls: "infinite-note-header" });
+
+		// file name (clickable)
+		const title = header.createEl("h2", { text: randomFile.basename });
+		title.addClass("infinite-note-title");
+		title.addClass("clickable-title");
+		title.setAttribute("aria-label", "Open note");  // tooltip
+
+		// click handler
+		title.addEventListener("click", (e) => {
+		    e.stopPropagation();  // off scroll
+		    const file = this.app.vault.getAbstractFileByPath(randomFile.path);
+		    if (file) {
+		    	// can set this to getLeaf(false) so that the note opens in the same tab,
+		    	// then you can return to the feed by pressing the "back" button,
+		    	// but in this case the feed will be overwritten
+		        this.app.workspace.getLeaf(false).openFile(file);  // open in new tab
+
+		        // this commented code will allow you to open a note in the current tab,
+		        // this can be useful to navigate back to the feed using the back button,
+		        // but in this case the feed will reload
+		        // const activeLeaf = this.app.workspace.getMostRecentLeaf();
+				// if (activeLeaf) {
+				//	  void activeLeaf.openFile(file);
+				// }
+		    } else {
+		    	new Notice(`Could not open "${randomFile.basename}"`, 4000);
+		    }
+		});
 
         // Content
         const contentEl = noteCard.createDiv({ cls: "infinite-note-content markdown-preview-view markdown-rendered" });

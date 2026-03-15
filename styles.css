@@ -42,6 +42,21 @@
     flex-shrink: 0;
 }
 
+.infinite-note-title {
+    cursor: pointer;
+}
+
+/* hover effect */
+.infinite-note-title:hover {
+    color: var(--text-accent-hover);
+    text-decoration: underline;
+}
+
+/* active effect */
+.infinite-note-title:active {
+    color: var(--text-accent-hover);
+}
+
 .infinite-note-content {
     flex-grow: 1;
     overflow-y: auto;
