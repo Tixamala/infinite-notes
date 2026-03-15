@@ -41,8 +41,7 @@ export class InfiniteNotesView extends ItemView {
 				const { scrollTop, clientHeight, scrollHeight } = container;
 				const distanceFromBottom = scrollHeight - scrollTop - clientHeight;
 
-				// load from settings
-				if (distanceFromBottom <= this.settings.loadThreshold) {
+				if (distanceFromBottom <= 100) {
 					this.isLoading = true;
 					void this.appendRandomNote(container).finally(() => {
 						this.isLoading = false;

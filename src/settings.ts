@@ -4,12 +4,10 @@ import InfiniteNotesPlugin from "./main";
 
 export interface InfiniteNotesSettings {
 	ignoredFolders: string[];
-	loadThreshold: number;
 }
 
 export const DEFAULT_SETTINGS: InfiniteNotesSettings = {
 	ignoredFolders: [],
-	loadThreshold: 100,
 };
 
 export class InfiniteNotesSettingTab extends PluginSettingTab {
@@ -64,21 +62,6 @@ export class InfiniteNotesSettingTab extends PluginSettingTab {
 					);
 			});
 		}
-
-		// Threshold setting
-		new Setting(containerEl)
-			.setName("Load threshold")
-			.setDesc("Distance from bottom (px) to trigger loading next note. May be useful on a mobile device")
-			.addSlider((slider) =>
-				slider
-					.setLimits(100, 1000, 50) // TODO: should be moved to a separate config
-					.setValue(this.plugin.settings.loadThreshold)
-					.setDynamicTooltip()
-					.onChange(async (value) => {
-						this.plugin.settings.loadThreshold = value;
-						await this.plugin.saveSettings();
-					})
-			);
 	}
 }
 

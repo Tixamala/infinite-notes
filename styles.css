@@ -14,12 +14,14 @@
     height: 100%;
     width: 100%;
     scroll-snap-align: start;
+    scroll-snap-stop: always;
     display: flex;
     flex-direction: column;
     padding: 20px;
     box-sizing: border-box;
     border-bottom: 1px solid var(--background-modifier-border);
     position: relative;
+    overflow: hidden;
     overflow-y: auto; /* Allow scrolling within the note if it's too long, though reels usually don't. 
                          For notes, we probably want to see the whole note content? 
                          Maybe max-height and hidden overflow with "read more"? 
