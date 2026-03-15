@@ -9,15 +9,21 @@
     margin: 0;
 }
 
+/* hide scrollbar */
+.infinite-notes-container::-webkit-scrollbar {
+    display: none;
+}
+
 /* Individual Note Card */
 .infinite-note-card {
     height: 100%;
-    width: 100%;
+    max-width: var(--file-line-width); /* standard as in tabs */
+	margin: 0 auto;
     scroll-snap-align: start;
     scroll-snap-stop: always;
     display: flex;
     flex-direction: column;
-    padding: 20px;
+    padding: 0px; /* the text of the note starts at the top of the page, level with the title */
     box-sizing: border-box;
     border-bottom: 1px solid var(--background-modifier-border);
     position: relative;
@@ -39,6 +45,7 @@
 .infinite-note-content {
     flex-grow: 1;
     overflow-y: auto;
+    padding-left: 0 !important;
 }
 
 /* Mobile adjustments if necessary */

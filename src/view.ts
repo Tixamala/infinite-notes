@@ -82,7 +82,7 @@ export class InfiniteNotesView extends ItemView {
         header.addClass("infinite-note-header");
 
         // Content
-		const contentEl = noteCard.createDiv({ cls: "infinite-note-content" });
+        const contentEl = noteCard.createDiv({ cls: "infinite-note-content markdown-preview-view markdown-rendered" });
 
 		await MarkdownRenderer.render(
 			this.app,
