@@ -22,6 +22,10 @@ export class InfiniteNotesView extends ItemView {
 		return "Infinite notes";
 	}
 
+	getIcon(): string {
+        return "infinity";
+    }
+
 	async onOpen() {
 			const container = this.containerEl.children[1];
 			if (!container) return;
